@@ -1,0 +1,27 @@
+@layout('layouts/main')
+@set('title', 'Comment')
+
+@section('body')
+<h1>Comment</h1>
+
+<hr/>
+
+@!field({
+    label: 'Post',
+    name: 'post',
+    value: comment.post.title,
+})
+
+@!field({
+    label: 'Name',
+    name: 'name',
+    value: comment.name,
+})
+
+@!field({
+    label: 'Content',
+    name: 'content',
+    value: comment.content,
+})
+
+@end

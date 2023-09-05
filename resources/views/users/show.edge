@@ -1,0 +1,47 @@
+@layout('layouts/main')
+@set('title', 'User')
+
+@section('body')
+<h1>User</h1>
+
+<hr/>
+
+@if(auth.user?.admin)
+    @!field({
+        label: 'Active',
+        name: 'active',
+        value: user.active,
+    })
+
+    @!field({
+        label: 'Admin',
+        name: 'admin',
+        value: user.admin,
+    })
+@end
+
+@!field({
+    label: 'First Name',
+    name: 'firstName',
+    value: user.firstName,
+})
+
+@!field({
+    label: 'Last Name',
+    name: 'lastName',
+    value: user.lastName,
+})
+
+@!field({
+    label: 'Email',
+    name: 'email',
+    value: user.email,
+})
+
+@!field({
+    label: 'Biography',
+    name: 'bio',
+    value: markdown.parse(user.bio, {ghf: true}),
+    raw: true,
+})
+@end

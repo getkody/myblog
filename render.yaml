@@ -1,0 +1,55 @@
+services:
+  - type: web
+    name: myblog_app
+    runtime: node
+    plan: free
+    region: ohio
+    branch: course
+    buildCommand: npm install --dev; npm run build; node build/ace migration:run --force; node build/ace db:seed;
+    startCommand: node build/server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
+      - key: PORT
+        value: 80
+      - key: HOST
+        value: 0.0.0.0
+      - key: NODE_ENV
+        value: production
+      - key: APP_KEY
+        sync: false
+      - key: DRIVE_DISK
+        value: local
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: CACHE_VIEWS
+        value: false
+      - key: DB_CONNECTION
+        value: pg
+      - key: PG_HOST
+        fromDatabase:
+          name: myblog_db
+          property: host
+      - key: PG_PORT
+        fromDatabase:
+          name: myblog_db
+          property: port
+      - key: PG_USER
+        fromDatabase:
+          name: myblog_db
+          property: user
+      - key: PG_PASSWORD
+        fromDatabase:
+          name: myblog_db
+          property: password
+      - key: PG_DB_NAME
+        fromDatabase:
+          name: myblog_db
+          property: database
+
+databases:
+  - name: myblog_db
+    plan: free
+    region: ohio
+    databaseName: myblog
+    user: myblog
